@@ -97,8 +97,8 @@ public class Exb1ApplicationTests {
 	@Test
 	public void getListOfPerson() {
 		int lengthOfList = 4;
-		Person[] listOfPersons = personService.findAllPerson();
-		int sizeOfPersonListRetrieved = listOfPersons.length;
+		ArrayList<Person> listOfPersons = personService.findAllPerson();
+		int sizeOfPersonListRetrieved = listOfPersons.size();
 		assertEquals(lengthOfList, sizeOfPersonListRetrieved);
 	}
 

@@ -5,19 +5,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.abis.exercise.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import be.abis.exercise.exception.EnrollException;
 import be.abis.exercise.exception.PersonCanNotBeDeletedException;
-import be.abis.exercise.model.Course;
-import be.abis.exercise.model.Person;
 
 @Service
 public class AbisTrainingService implements TrainingService {
     
 	@Autowired
-	private CourseService courseService;	
+	private CourseService courseService;
+
+	@Autowired
+	PersonService personService;
 	
 	@Override
 	public CourseService getCourseService() {
@@ -31,32 +33,37 @@ public class AbisTrainingService implements TrainingService {
 
 	@Override
 	public ArrayList<Person> getAllPersons() {
-		return null;
+		return personService.findAllPerson();
 	}
 
 	@Override
 	public Person findPerson(int id) {
-		return null;
+		return personService.findPersonById(id);
 	}
 
 	@Override
-	public Person findPerson(String emailAddress, String passWord) {
-		return null;
+	public Person findPerson(String emailAddress, String password) {
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setPassword(password);
+		loginRequest.setEmail(emailAddress);
+		return personService.findPerson(loginRequest);
 	}
 
 	@Override
 	public void addPerson(Person p) throws IOException {
-		
+		personService.addPerson(p);
 	}
 
 	@Override
 	public void deletePerson(int id) throws PersonCanNotBeDeletedException {
-				
+		personService.deletePerson(id);
 	}
 
 	@Override
 	public void changePassword(Person p, String newPswd) throws IOException {
-				
+		ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
+		changePasswordRequest.setNewPassword(newPswd);
+		personService.changePassword(p.getPersonId(), changePasswordRequest);
 	}
 
 	@Override

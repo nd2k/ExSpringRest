@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface PersonService {
 
     Person findPersonById(int id);
-    Person[] findAllPerson();
+    ArrayList<Person> findAllPerson();
     Person findPerson(LoginRequest loginRequest);
     void addPerson(Person p) throws IOException;
     public void deletePerson(int id) throws PersonCanNotBeDeletedException;
